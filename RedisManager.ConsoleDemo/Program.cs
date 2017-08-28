@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -104,6 +105,15 @@ abortConnect=False";
                 Console.WriteLine("this should be at the end");
             }
         }
-        
+
+        static async Task ServersDemo()
+        {
+            using (var redis = await ConnectionMultiplexer.ConnectAsync(ConnectionString))
+            {
+                IServer server = redis.GetServer("sedc-redis-cache.redis.cache.windows.net", 6379);
+
+                EndPoint[] result = redis.GetEndPoints();
+            }
+        }
     }
 }
